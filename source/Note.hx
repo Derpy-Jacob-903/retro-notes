@@ -98,6 +98,45 @@ class Note extends FlxSprite
 					hitCausesMiss = true;
 				case 'No Animation':
 					noAnimation = true;
+				case 'Poison':
+					ignoreNote = mustPress;
+					reloadNote('Poison');
+					noteSplashTexture = 'NOnoteSplashes';
+					colorSwap.hue = 0;
+					colorSwap.saturation = 0;
+					colorSwap.brightness = 0;
+					if(isSustainNote) {
+						missHealth = 0;
+					} else {
+						missHealth = 0;
+					}
+					hitCausesMiss = true;
+				case 'Spectre':
+					ignoreNote = mustPress;
+					reloadNote('Spectre');
+					noteSplashTexture = 'NOnoteSplashes';
+					colorSwap.hue = 0;
+					colorSwap.saturation = 0;
+					colorSwap.brightness = 0;
+					if(isSustainNote) {
+						missHealth = 0;
+					} else {
+						missHealth = 0;
+					}
+					hitCausesMiss = true;
+				case 'SakuNote':
+					ignoreNote = mustPress;
+					reloadNote('SakuNote');
+					noteSplashTexture = 'NOnoteSplashes';
+					colorSwap.hue = 0;
+					colorSwap.saturation = 0;
+					colorSwap.brightness = 0;
+					if(isSustainNote) {
+						missHealth = 0;
+					} else {
+						missHealth = 0;
+					}
+					hitCausesMiss = true;
 			}
 			noteType = value;
 		}
