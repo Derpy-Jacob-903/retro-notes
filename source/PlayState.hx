@@ -269,6 +269,8 @@ class PlayState extends MusicBeatState
 
 	var spectreNoteHits:Array<FlxTypedGroup<FlxSprite>> = [null, null, null, null];
 	var enemySpectreNoteHit:FlxSprite;
+	
+	private var healthBarOrigin:FlxPoint;
 
 	override public function create()
 	{
@@ -899,6 +901,7 @@ class PlayState extends MusicBeatState
 		healthBar.scrollFactor.set();
 		// healthBar
 		healthBar.visible = !ClientPrefs.hideHud;
+		healthBarOrigin = healthBar.getPosition();
 		add(healthBar);
 		healthBarBG.sprTracker = healthBar;
 
@@ -1831,6 +1834,8 @@ class PlayState extends MusicBeatState
 	var startedCountdown:Bool = false;
 	var canPause:Bool = true;
 	var limoSpeed:Float = 0;
+				
+	var iconOffset:Int = 26;
 
 	override public function update(elapsed:Float)
 	{
@@ -1979,7 +1984,7 @@ class PlayState extends MusicBeatState
 					health -= healthDrainPoison * poisonStacks * elapsed; // Gotta make it fair with different framerates :)
 				}
 
-				updateHealthGraphics();
+				//updateHealthGraphics();
 			}
 
 			// Spectre Mechanic
