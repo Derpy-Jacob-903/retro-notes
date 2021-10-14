@@ -255,6 +255,7 @@ class PlayState extends MusicBeatState
 	// Poison health drain mechanic
 	var healthDrainPoison:Float = 0.025;
 	var poisonStacks:Int = 0;
+	var ectospasmShit:Bool = false;
 
 	var poisonIcon:FlxSprite;
 	var poisonTxt:FlxText;
@@ -1982,7 +1983,7 @@ class PlayState extends MusicBeatState
 			}
 
 			// Spectre Mechanic
-			if (curSong == 'Ectospasm')
+			if (ectospasmShit == true)
 			{
 				if (!spectreHit)
 				{
