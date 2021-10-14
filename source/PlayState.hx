@@ -118,6 +118,10 @@ class PlayState extends MusicBeatState
 	public static var storyDifficulty:Int = 1;
 
 	public var vocals:FlxSound;
+	var poisonSound:FlxSound;
+	var spectreSound:FlxSound;
+	var sakuLaugh:FlxSound;
+	var sakuNote:FlxSound;
 
 	public var dad:Character;
 	public var gf:Character;
@@ -246,6 +250,24 @@ class PlayState extends MusicBeatState
 	// Lua shit
 	private var luaDebugGroup:FlxTypedGroup<DebugLuaText>;
 	public var introSoundsSuffix:String = '';
+	
+	// Retro-specific variables
+	// Poison health drain mechanic
+	var healthDrainPoison:Float = 0.025;
+	var poisonStacks:Int = 0;
+
+	var poisonIcon:FlxSprite;
+	var poisonTxt:FlxText;
+	var poisonNoteHits:Array<FlxTypedGroup<FlxSprite>> = [null, null, null, null];
+
+	// Spectre note mechanic
+	var noteFadeTime:Float = 0.025;
+	var noteOpacity:Float = 0.5;
+	var spectreHit:Bool = false;
+	var enemySpectreHit:Bool = false;
+
+	var spectreNoteHits:Array<FlxTypedGroup<FlxSprite>> = [null, null, null, null];
+	var enemySpectreNoteHit:FlxSprite;
 
 	override public function create()
 	{
@@ -1926,6 +1948,66 @@ class PlayState extends MusicBeatState
 					if(heyTimer <= 0) {
 						bottomBoppers.dance(true);
 						heyTimer = 0;
+			// Health bar shake
+			if (health <= 0.01 && poisonStacks != 0)
+			{
+				healthBar.setPosition(FlxG.random.float(-5, 5) + healthBarOrigin.x, FlxG.random.float(-5, 5) + healthBarOrigin.y);
+				iconP1.setPosition(healthBar.x + (healthBar.width * (1 - (health / 2)) - iconOffset), healthBar.y - 60);
+				iconP2.setPosition(healthBar.x + (healthBar.width * (1 - (health / 2)) - (150 - iconOffset)), healthBar.y - 60);
+				poisonIcon.setPosition(iconP1.x + 75, healthBar.y + (FlxG.save.data.downscroll ? 25 : -75));
+				poisonTxt.setPosition(iconP1.x + 115, poisonIcon.y + 20);
+			}
+			else if (healthBar.x != healthBarOrigin.x || healthBar.y != healthBarOrigin.y)
+			{
+				healthBar.setPosition(healthBarOrigin.x, healthBarOrigin.y);
+				iconP1.setPosition(healthBar.x + (healthBar.width * (1 - (health / 2)) - iconOffset), healthBar.y - 60);
+				iconP2.setPosition(healthBar.x + (healthBar.width * (1 - (health / 2)) - (150 - iconOffset)), healthBar.y - 60);
+				poisonIcon.setPosition(iconP1.x + 75, healthBar.y + (FlxG.save.data.downscroll ? 25 : -75));
+				poisonTxt.setPosition(iconP1.x + 115, poisonIcon.y + 20);
+			}
+				/// Retro Poison Mechanic
+			// Drain health, but don't kill player
+			if (health > 0.01)
+			{
+				if (healthDrainPoison * poisonStacks * elapsed > health)
+				{
+					health = 0.01;
+				}
+				else
+				{
+					health -= healthDrainPoison * poisonStacks * elapsed; // Gotta make it fair with different framerates :)
+				}
+
+				updateHealthGraphics();
+			}
+
+			// Spectre Mechanic
+			if (curSong == 'Ectospasm')
+			{
+				if (!spectreHit)
+				{
+					if (noteFadeTime * elapsed > noteOpacity)
+					{
+						noteOpacity = 0;
+					}
+					else
+					{
+						noteOpacity -= noteFadeTime * elapsed;
+					}
+				}
+				else
+				{
+					if (noteOpacity > 1)
+					{
+						noteOpacity = 1;
+						spectreHit = false;
+					}
+					else
+					{
+						noteOpacity += elapsed;
+					}
+				}
+			}
 					}
 				}
 		}
