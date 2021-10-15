@@ -1,0 +1,57 @@
+{
+	"songs": [
+		[
+			"ectospasm",
+			"bf",
+			[
+				146,
+				113,
+				253
+			]
+		],
+		[
+			"true-ectospasm",
+			"bf",
+			[
+				146,
+				113,
+				253
+			]
+		],
+		[
+			"Fuzzy-Feeling",
+			"bf",
+			[
+				146,
+				113,
+				253
+			]
+		],
+		[
+			"Salem",
+			"bf",
+			[
+				146,
+				113,
+				253
+			]
+		]
+	],
+	"hideFreeplay": false,
+	"weekBackground": "bf",
+	"weekCharacters": [
+		"bf",
+		"bf",
+		"gf"
+	],
+	"storyName": "The Airship",
+	"weekName": "sus",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"hideStoryMode": true,
+	"weekBefore": "wrath",
+	"startUnlocked": true
+}

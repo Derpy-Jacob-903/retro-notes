@@ -1988,8 +1988,8 @@ class PlayState extends MusicBeatState
 			}
 
 			// Spectre Mechanic
-			if (ectospasmShit == true)
-			{
+			//if (ectospasmShit == true)
+			//{
 				if (!spectreHit)
 				{
 					if (noteFadeTime * elapsed > noteOpacity)
@@ -2011,7 +2011,7 @@ class PlayState extends MusicBeatState
 					else
 					{
 						noteOpacity += elapsed;
-					}
+					//}
 				}
 			}
 					}
@@ -2831,6 +2831,9 @@ class PlayState extends MusicBeatState
 			
 			case 'BG Freaks Expression':
 				if(bgGirls != null) bgGirls.swapDanceType();
+			case 'Toggle Ectospasm Fading Shit':
+				ectospasmShit = !ectospasmShit;
+				
 		}
 		callOnLuas('onEvent', [eventName, value1, value2]);
 	}
